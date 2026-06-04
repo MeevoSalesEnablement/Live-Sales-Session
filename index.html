@@ -25,7 +25,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-
 /* Grain overlay */
 body::before{
   content:"";
@@ -35,9 +34,7 @@ body::before{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   z-index:1;
 }
-
 .wrap{max-width:1320px;margin:0 auto;padding:32px 40px;position:relative;z-index:2}
-
 /* ===== MASTHEAD ===== */
 .mast{
   display:grid;
@@ -81,7 +78,6 @@ body::before{
   font-weight:600;
 }
 .mast .issue strong{display:block;color:var(--ink);font-size:14px;letter-spacing:0.06em;margin-top:4px}
-
 .strap{
   display:flex;
   justify-content:space-between;
@@ -95,7 +91,6 @@ body::before{
   color:var(--ink-2);
 }
 .strap .dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--plum);margin:0 8px}
-
 /* ===== HERO TITLE ===== */
 .hero{
   display:grid;
@@ -126,7 +121,6 @@ body::before{
   max-width:280px;
 }
 .hero-meta strong{display:block;color:var(--ink);font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-bottom:4px;letter-spacing:-0.01em}
-
 /* ===== VIEW SWITCHER ===== */
 .controls{
   display:flex;
@@ -162,7 +156,6 @@ body::before{
   background:var(--ink);
   color:var(--bg);
 }
-
 .view-switch{
   display:flex;
   gap:2px;
@@ -185,7 +178,6 @@ body::before{
   letter-spacing:0.06em;
 }
 .vs-btn.active{background:var(--white);color:var(--plum);box-shadow:0 1px 2px rgba(0,0,0,0.06)}
-
 .btn{
   padding:10px 20px;
   border:1.5px solid var(--ink);
@@ -210,7 +202,6 @@ body::before{
 .btn.danger{background:transparent;color:var(--red);border-color:var(--red)}
 .btn.danger:hover{background:var(--red);color:var(--white)}
 .btn.sm{padding:6px 12px;font-size:11px;border-radius:6px}
-
 /* ===== CALENDAR ===== */
 .cal-nav{
   display:flex;
@@ -242,7 +233,6 @@ body::before{
   transition:all 0.15s;
 }
 .nav-btn:hover{background:var(--ink);color:var(--bg)}
-
 .cal-grid{
   background:var(--white);
   border:1.5px solid var(--ink);
@@ -265,7 +255,6 @@ body::before{
   border-right:1px solid rgba(255,255,255,0.12);
 }
 .cal-header .day-name:last-child{border-right:none}
-
 .cal-body{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -310,7 +299,6 @@ body::before{
 }
 .cal-cell .sdr-label{color:var(--plum)}
 .cal-cell .ae-label{color:var(--gold)}
-
 .sess-chip{
   display:block;
   background:var(--plum);
@@ -331,7 +319,6 @@ body::before{
 .sess-chip.combined{background:linear-gradient(90deg, var(--plum) 0%, var(--plum) 50%, var(--gold) 50%, var(--gold) 100%)}
 .sess-chip.completed{opacity:0.55;text-decoration:line-through}
 .sess-chip.cancelled{background:var(--bg-2);color:var(--muted);text-decoration:line-through}
-
 /* ===== LIST VIEW ===== */
 .list-wrap{
   background:var(--white);
@@ -359,7 +346,6 @@ body::before{
 }
 .list-filters input{flex:1;min-width:200px}
 .list-filters label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600}
-
 table.list{
   width:100%;
   border-collapse:collapse;
@@ -385,7 +371,6 @@ table.list tr:last-child td{border-bottom:none}
 table.list tr:hover td{background:var(--plum-lt)}
 table.list .t-title{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:2px}
 table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:320px}
-
 .badge{
   display:inline-block;
   padding:3px 8px;
@@ -402,9 +387,47 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
 .badge.status-scheduled{background:var(--plum-lt);color:var(--plum)}
 .badge.status-completed{background:#e0efe5;color:var(--green)}
 .badge.status-cancelled{background:#f5dfe3;color:var(--red)}
-
 .empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'Fraunces',serif;font-style:italic}
-
+/* ===== FILE LINK STYLES ===== */
+.file-link{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 10px;
+  background:var(--plum-lt);
+  color:var(--plum);
+  border-radius:4px;
+  font-size:11px;
+  font-weight:600;
+  text-decoration:none;
+  transition:all 0.15s;
+}
+.file-link:hover{background:var(--plum);color:var(--white)}
+.file-link .ico{font-size:13px}
+.file-link-none{color:var(--muted);font-size:11px;font-style:italic;font-family:'Fraunces',serif}
+.file-preview{
+  margin-top:8px;
+  padding:10px 14px;
+  background:var(--plum-lt);
+  border-left:3px solid var(--plum);
+  border-radius:0 6px 6px 0;
+  font-size:12px;
+  display:none;
+  align-items:center;
+  gap:8px;
+}
+.file-preview.show{display:flex}
+.file-preview .label{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  color:var(--ink-2);
+  font-size:11px;
+}
+.file-preview a{
+  color:var(--plum);
+  font-weight:600;
+  word-break:break-all;
+}
 /* ===== LIBRARY ===== */
 .library-intro{
   margin-bottom:20px;
@@ -417,7 +440,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
   font-size:14px;
   color:var(--ink-2);
 }
-
 /* ===== MODAL ===== */
 .modal-bg{
   position:fixed;
@@ -476,7 +498,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
   background:var(--bg);
   border-radius:0 0 8px 8px;
 }
-
 .form-group{margin-bottom:18px}
 .form-group label{
   display:block;
@@ -486,6 +507,13 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
   letter-spacing:0.12em;
   color:var(--ink-2);
   margin-bottom:6px;
+}
+.form-hint{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+  font-style:italic;
+  font-family:'Fraunces',serif;
 }
 .form-group input,.form-group select,.form-group textarea{
   width:100%;
@@ -505,7 +533,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
 }
 .form-group textarea{resize:vertical;min-height:80px;font-family:inherit}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
 /* ===== TOAST ===== */
 .toast{
   position:fixed;
@@ -528,7 +555,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
 .toast.show{transform:translateY(0);opacity:1}
 .toast.ok{background:var(--plum)}
 .toast.err{background:var(--red)}
-
 /* ===== LOADING ===== */
 .loading{
   display:inline-block;
@@ -539,7 +565,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
   animation:spin 0.6s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
   .wrap{padding:20px}
@@ -557,9 +582,7 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
 </style>
 </head>
 <body>
-
 <div class="wrap">
-
   <!-- MASTHEAD -->
   <div class="mast">
     <div class="brand">Meevo<span class="reg">®</span></div>
@@ -570,7 +593,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
     <div><em>A field guide to</em> <span class="dot"></span> Mondays with SDRs <span class="dot"></span> Tuesdays with AEs</div>
     <div id="strap-right">The curriculum</div>
   </div>
-
   <!-- HERO -->
   <div class="hero">
     <h1>Live<br><em>Sessions</em></h1>
@@ -579,7 +601,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
       All weekly live training sessions for SDRs and AEs, plus Product Training led by our SE team. Click any date to schedule; click any session to edit.
     </div>
   </div>
-
   <!-- TAB / TRACK SWITCHER -->
   <div class="controls">
     <div class="tabs" role="tablist">
@@ -597,7 +618,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
       <button class="btn plum" id="btn-add-scheduled">+ Schedule Session</button>
     </div>
   </div>
-
   <!-- CALENDAR VIEW -->
   <div id="view-calendar">
     <div class="cal-nav">
@@ -608,7 +628,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
         <button class="nav-btn" id="cal-next">›</button>
       </div>
     </div>
-
     <div class="cal-grid">
       <div class="cal-header">
         <div class="day-name">Sun</div>
@@ -622,7 +641,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
       <div class="cal-body" id="cal-body"></div>
     </div>
   </div>
-
   <!-- LIST VIEW -->
   <div id="view-list" style="display:none">
     <div class="list-wrap">
@@ -642,11 +660,10 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
       <div id="list-body"></div>
     </div>
   </div>
-
   <!-- LIBRARY VIEW -->
   <div id="view-library" style="display:none">
     <div class="library-intro">
-      Master list of reusable sessions. Add new sessions here so they appear in the “Schedule Session” dropdown.
+      Master list of reusable sessions. Add new sessions here so they appear in the "Schedule Session" dropdown. Attach a course file link (OneDrive, SharePoint, or Google Drive) so facilitators can open the deck in one click.
     </div>
     <div style="margin-bottom:16px;display:flex;justify-content:flex-end">
       <button class="btn" id="btn-add-library">+ New Session Template</button>
@@ -655,9 +672,7 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
       <div id="library-body"></div>
     </div>
   </div>
-
 </div>
-
 <!-- SCHEDULE MODAL -->
 <div class="modal-bg" id="modal-schedule">
   <div class="modal">
@@ -671,8 +686,16 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
         <select id="s-template">
           <option value="">— Select a session —</option>
         </select>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic;font-family:'Fraunces',serif">
+        <div class="form-hint">
           Don't see the one you want? Go to Session Library to add a new template.
+        </div>
+        <!-- Course file preview (auto-shows when a template with a link is selected) -->
+        <div class="file-preview" id="s-file-preview">
+          <span class="ico" style="font-size:16px">📎</span>
+          <div>
+            <div class="label">Course file for this session</div>
+            <a id="s-file-link" href="#" target="_blank" rel="noopener noreferrer">—</a>
+          </div>
         </div>
       </div>
       <div class="form-row">
@@ -721,7 +744,6 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
     </div>
   </div>
 </div>
-
 <!-- LIBRARY (TEMPLATE) MODAL -->
 <div class="modal-bg" id="modal-library">
   <div class="modal">
@@ -760,6 +782,14 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
         <label>Learning Objectives</label>
         <textarea id="l-objectives" placeholder="What will reps walk away knowing or doing?"></textarea>
       </div>
+      <!-- NEW: Course File Link -->
+      <div class="form-group">
+        <label>Course File Link</label>
+        <input type="url" id="l-coursefile" placeholder="https://onedrive.com/… or SharePoint / Google Drive URL">
+        <div class="form-hint">
+          Optional. Paste a OneDrive, SharePoint, or Google Drive link to the deck, workbook, or recording. Facilitators will see this when prepping.
+        </div>
+      </div>
     </div>
     <div class="modal-foot">
       <button class="btn danger" id="btn-delete-library" style="display:none">Delete</button>
@@ -770,13 +800,10 @@ table.list .t-desc{font-size:12px;color:var(--muted);line-height:1.4;max-width:3
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
 // ================== CONFIG ==================
 var API_URL = "https://script.google.com/macros/s/AKfycbwOaW1DZM-D3yUZfw6R9anxY9Y-3m9e9Mxwo-X96tWv858rGzPs00rrmOjlDt9sBRze/exec";
-
 // Facilitators list
 var FACILITATORS = [
   "Avery Baccala",
@@ -788,33 +815,31 @@ var FACILITATORS = [
   "Tony Sansone",
   "Ryan Burns"
 ];
-
 // Pre-seeded session library (used if the cloud Library is empty)
 var SEED_LIBRARY = [
   // SDR
-  {id:"s1", track:"SDR", title:"ICP & Target Prospecting", description:"Who we sell to, why they buy, and what signals indicate a fit account.", duration:60, objectives:"Reps can articulate Meevo's ICP and identify 3 fit signals in any account."},
-  {id:"s2", track:"SDR", title:"Cold Calling Mindset & Mechanics", description:"Getting past the first 30 seconds — tone, pacing, and handling the 'who's this?' moment.", duration:60, objectives:"Reps can open a cold call confidently and hold the line past the first objection."},
-  {id:"s3", track:"SDR", title:"Gatekeeper Strategies", description:"Info gleaning, building rapport with non-decision-makers, and getting routed to the right person.", duration:60, objectives:"Reps have 3 gatekeeper scripts and know when to use each."},
-  {id:"s4", track:"SDR", title:"Purpose → Plan → Outcome", description:"Structuring every call so the prospect knows why you're calling and what's in it for them.", duration:60, objectives:"Reps can frame any call using the PPO structure in under 20 seconds."},
-  {id:"s5", track:"SDR", title:"Discovery Fundamentals", description:"The question framework that uncovers pain, priority, and timing.", duration:60, objectives:"Reps can run a 3-question discovery that surfaces real pain."},
-  {id:"s6", track:"SDR", title:"Objection Handling 101", description:"'Not interested,' 'we already have a solution,' 'send me info' — scripts and reframes.", duration:60, objectives:"Reps have a response for the top 5 cold-call objections."},
-  {id:"s7", track:"SDR", title:"Multi-Channel Outreach", description:"Blending cold calls, email sequences, LinkedIn, and video into a rhythm.", duration:60, objectives:"Reps can build a 10-touch sequence across 3 channels."},
-  {id:"s8", track:"SDR", title:"Voicemail & Follow-Up Playbook", description:"When to leave one, what to say, and follow-up cadences that don't feel spammy.", duration:30, objectives:"Reps know the VM formula and 3 follow-up cadence options."},
-  {id:"s9", track:"SDR", title:"Intro Call → Demo Handoff", description:"Setting the demo agenda, qualifying before handoff, and multi-threading to bring the right stakeholders.", duration:60, objectives:"Reps run a handoff-ready intro call with 90%+ demo show rate."},
-  {id:"s10", track:"SDR", title:"Pipeline Self-Management", description:"CRM hygiene, activity tracking, weekly self-audits, and personal pipeline reviews.", duration:30, objectives:"Reps can audit their own pipeline and flag 3 at-risk opps each week."},
+  {id:"s1", track:"SDR", title:"ICP & Target Prospecting", description:"Who we sell to, why they buy, and what signals indicate a fit account.", duration:60, objectives:"Reps can articulate Meevo's ICP and identify 3 fit signals in any account.", courseFileLink:""},
+  {id:"s2", track:"SDR", title:"Cold Calling Mindset & Mechanics", description:"Getting past the first 30 seconds — tone, pacing, and handling the 'who's this?' moment.", duration:60, objectives:"Reps can open a cold call confidently and hold the line past the first objection.", courseFileLink:""},
+  {id:"s3", track:"SDR", title:"Gatekeeper Strategies", description:"Info gleaning, building rapport with non-decision-makers, and getting routed to the right person.", duration:60, objectives:"Reps have 3 gatekeeper scripts and know when to use each.", courseFileLink:""},
+  {id:"s4", track:"SDR", title:"Purpose → Plan → Outcome", description:"Structuring every call so the prospect knows why you're calling and what's in it for them.", duration:60, objectives:"Reps can frame any call using the PPO structure in under 20 seconds.", courseFileLink:""},
+  {id:"s5", track:"SDR", title:"Discovery Fundamentals", description:"The question framework that uncovers pain, priority, and timing.", duration:60, objectives:"Reps can run a 3-question discovery that surfaces real pain.", courseFileLink:""},
+  {id:"s6", track:"SDR", title:"Objection Handling 101", description:"'Not interested,' 'we already have a solution,' 'send me info' — scripts and reframes.", duration:60, objectives:"Reps have a response for the top 5 cold-call objections.", courseFileLink:""},
+  {id:"s7", track:"SDR", title:"Multi-Channel Outreach", description:"Blending cold calls, email sequences, LinkedIn, and video into a rhythm.", duration:60, objectives:"Reps can build a 10-touch sequence across 3 channels.", courseFileLink:""},
+  {id:"s8", track:"SDR", title:"Voicemail & Follow-Up Playbook", description:"When to leave one, what to say, and follow-up cadences that don't feel spammy.", duration:30, objectives:"Reps know the VM formula and 3 follow-up cadence options.", courseFileLink:""},
+  {id:"s9", track:"SDR", title:"Intro Call → Demo Handoff", description:"Setting the demo agenda, qualifying before handoff, and multi-threading to bring the right stakeholders.", duration:60, objectives:"Reps run a handoff-ready intro call with 90%+ demo show rate.", courseFileLink:""},
+  {id:"s10", track:"SDR", title:"Pipeline Self-Management", description:"CRM hygiene, activity tracking, weekly self-audits, and personal pipeline reviews.", duration:30, objectives:"Reps can audit their own pipeline and flag 3 at-risk opps each week.", courseFileLink:""},
   // AE
-  {id:"a1", track:"AE", title:"SPIN Selling Deep Dive", description:"Situation, Problem, Implication, Need-payoff questions with real Meevo examples.", duration:60, objectives:"AEs can run a full SPIN sequence in a live discovery call."},
-  {id:"a2", track:"AE", title:"Discovery Mastery", description:"Running full discovery, connecting pain to business impact, and quantifying the cost of inaction.", duration:60, objectives:"AEs can quantify 2+ business impacts in every discovery."},
-  {id:"a3", track:"AE", title:"Running a Great Demo", description:"Demo-flow structure, tailoring to roles, avoiding feature-dump mode.", duration:60, objectives:"AEs can tailor any demo to owner vs. manager vs. clinical audience."},
-  {id:"a4", track:"AE", title:"Multi-Threading & Stakeholder Mapping", description:"Economic buyer, operational lead, clinical authority, champion — how to identify and engage each.", duration:60, objectives:"AEs can name 4 stakeholder types and strategies for each."},
-  {id:"a5", track:"AE", title:"Competitive Positioning", description:"How Meevo wins vs. specific competitors, common switch objections, and the proof-point library.", duration:60, objectives:"AEs can position Meevo vs. top 3 competitors from memory."},
-  {id:"a6", track:"AE", title:"Pricing & Negotiation", description:"Anchoring, package selection, discounting discipline, trading not giving.", duration:60, objectives:"AEs can run a pricing conversation without discounting first."},
-  {id:"a7", track:"AE", title:"Objection Handling (Late-Stage)", description:"Pricing pushback, 'we need to think about it,' procurement stalls, scope creep.", duration:60, objectives:"AEs have a playbook for the 5 most common late-stage objections."},
-  {id:"a8", track:"AE", title:"Creating & Managing Urgency", description:"Compelling events, ROI framing, mutual action plans that hold deals together.", duration:60, objectives:"AEs can build a mutual action plan on any deal >$X."},
-  {id:"a9", track:"AE", title:"Forecasting & Deal Inspection", description:"What makes a commit, what makes best-case, red flags in late-stage deals.", duration:30, objectives:"AEs can inspect their own pipeline and forecast with <10% variance."},
-  {id:"a10", track:"AE", title:"Closing & Implementation Handoff", description:"Legal/contract walkthrough, setting expectations for onboarding, and customer success handoff.", duration:60, objectives:"AEs can execute a clean close-to-onboarding handoff."}
+  {id:"a1", track:"AE", title:"SPIN Selling Deep Dive", description:"Situation, Problem, Implication, Need-payoff questions with real Meevo examples.", duration:60, objectives:"AEs can run a full SPIN sequence in a live discovery call.", courseFileLink:""},
+  {id:"a2", track:"AE", title:"Discovery Mastery", description:"Running full discovery, connecting pain to business impact, and quantifying the cost of inaction.", duration:60, objectives:"AEs can quantify 2+ business impacts in every discovery.", courseFileLink:""},
+  {id:"a3", track:"AE", title:"Running a Great Demo", description:"Demo-flow structure, tailoring to roles, avoiding feature-dump mode.", duration:60, objectives:"AEs can tailor any demo to owner vs. manager vs. clinical audience.", courseFileLink:""},
+  {id:"a4", track:"AE", title:"Multi-Threading & Stakeholder Mapping", description:"Economic buyer, operational lead, clinical authority, champion — how to identify and engage each.", duration:60, objectives:"AEs can name 4 stakeholder types and strategies for each.", courseFileLink:""},
+  {id:"a5", track:"AE", title:"Competitive Positioning", description:"How Meevo wins vs. specific competitors, common switch objections, and the proof-point library.", duration:60, objectives:"AEs can position Meevo vs. top 3 competitors from memory.", courseFileLink:""},
+  {id:"a6", track:"AE", title:"Pricing & Negotiation", description:"Anchoring, package selection, discounting discipline, trading not giving.", duration:60, objectives:"AEs can run a pricing conversation without discounting first.", courseFileLink:""},
+  {id:"a7", track:"AE", title:"Objection Handling (Late-Stage)", description:"Pricing pushback, 'we need to think about it,' procurement stalls, scope creep.", duration:60, objectives:"AEs have a playbook for the 5 most common late-stage objections.", courseFileLink:""},
+  {id:"a8", track:"AE", title:"Creating & Managing Urgency", description:"Compelling events, ROI framing, mutual action plans that hold deals together.", duration:60, objectives:"AEs can build a mutual action plan on any deal >$X.", courseFileLink:""},
+  {id:"a9", track:"AE", title:"Forecasting & Deal Inspection", description:"What makes a commit, what makes best-case, red flags in late-stage deals.", duration:30, objectives:"AEs can inspect their own pipeline and forecast with <10% variance.", courseFileLink:""},
+  {id:"a10", track:"AE", title:"Closing & Implementation Handoff", description:"Legal/contract walkthrough, setting expectations for onboarding, and customer success handoff.", duration:60, objectives:"AEs can execute a clean close-to-onboarding handoff.", courseFileLink:""}
 ];
-
 // ================== STATE ==================
 var state = {
   library: [],          // session templates
@@ -825,7 +850,6 @@ var state = {
   editingScheduledId: null,
   editingLibraryId: null
 };
-
 // ================== HELPERS ==================
 function $(id){return document.getElementById(id)}
 function fmtDate(d){ // returns YYYY-MM-DD
@@ -841,13 +865,24 @@ function fmtMonth(d){
   return [m[d.getMonth()], d.getFullYear()];
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function shortenUrl(u){
+  if (!u) return '';
+  try {
+    var url = new URL(u);
+    var host = url.hostname.replace(/^www\./,'');
+    var path = url.pathname.length > 1 ? url.pathname : '';
+    var display = host + (path.length > 30 ? path.substring(0, 30) + '…' : path);
+    return display;
+  } catch(e){
+    return u.length > 50 ? u.substring(0, 50) + '…' : u;
+  }
+}
 function toast(msg, kind){
   var t=$('toast');
   t.textContent=msg;
   t.className='toast show '+(kind||'ok');
   setTimeout(function(){t.classList.remove('show')},2800);
 }
-
 // ================== API ==================
 function apiGet(action, cb){
   fetch(API_URL+'?action='+encodeURIComponent(action), {method:'GET', mode:'cors'})
@@ -868,7 +903,6 @@ function apiPost(body, cb){
   .then(function(d){ if(cb) cb(d); })
   .catch(function(err){ toast('Save failed: '+(err.message||''), 'err'); });
 }
-
 // ================== LOAD ==================
 function loadAll(){
   apiGet('readLibrary', function(lib){
@@ -876,7 +910,7 @@ function loadAll(){
       // First-ever load — seed the cloud with the 20 sessions
       state.library = SEED_LIBRARY.slice();
       state.library.forEach(function(s){
-        apiPost({action:'addLibrary', id:s.id, track:s.track, title:s.title, description:s.description, duration:s.duration, objectives:s.objectives});
+        apiPost({action:'addLibrary', id:s.id, track:s.track, title:s.title, description:s.description, duration:s.duration, objectives:s.objectives, courseFileLink:s.courseFileLink||''});
       });
       toast('Seeded 20 starter sessions', 'ok');
     } else {
@@ -888,7 +922,6 @@ function loadAll(){
     });
   });
 }
-
 // ================== RENDER ==================
 function render(){
   // Hide all views, show active
@@ -897,7 +930,6 @@ function render(){
   $('view-library').style.display = state.currentTrack==='library' ? '' : 'none';
   $('view-switch').style.display = state.currentTrack==='library' ? 'none' : '';
   $('btn-add-scheduled').style.display = state.currentTrack==='library' ? 'none' : '';
-
   if (state.currentTrack === 'library'){
     renderLibrary();
   } else if (state.currentView === 'calendar'){
@@ -907,7 +939,6 @@ function render(){
   }
   $('issue-date').textContent = fmtIssue(new Date());
 }
-
 function filteredScheduled(){
   if (state.currentTrack === 'all') return state.scheduled;
   var t = state.currentTrack.toUpperCase();
@@ -918,32 +949,26 @@ function filteredScheduled(){
     return tpl.track === t;
   });
 }
-
 function renderCalendar(){
   var d = state.calDate;
   var monthParts = fmtMonth(d);
   $('cal-month-label').innerHTML = monthParts[0] + ' <em>' + monthParts[1] + '</em>';
-
   // Calculate first day of month and number of days
   var year = d.getFullYear(), month = d.getMonth();
   var firstOfMonth = new Date(year, month, 1);
   var lastOfMonth = new Date(year, month+1, 0);
   var startDay = firstOfMonth.getDay();
   var daysInMonth = lastOfMonth.getDate();
-
   // Previous month's trailing days
   var prevMonthLast = new Date(year, month, 0).getDate();
-
   var today = new Date();
   var todayStr = fmtDate(today);
-
   var scheduled = filteredScheduled();
   var byDate = {};
   scheduled.forEach(function(s){
     if (!byDate[s.date]) byDate[s.date] = [];
     byDate[s.date].push(s);
   });
-
   var cells = [];
   // Leading days from previous month
   for (var i = startDay - 1; i >= 0; i--){
@@ -958,7 +983,6 @@ function renderCalendar(){
     var last = cells[cells.length-1].date;
     cells.push({date: new Date(last.getFullYear(), last.getMonth(), last.getDate()+1), otherMonth: true});
   }
-
   var html = '';
   cells.forEach(function(c){
     var dateStr = fmtDate(c.date);
@@ -972,7 +996,6 @@ function renderCalendar(){
     var classes = ['cal-cell'];
     if (c.otherMonth) classes.push('other-month');
     if (dateStr === todayStr) classes.push('today');
-
     html += '<div class="'+classes.join(' ')+'" data-date="'+dateStr+'" '+(c.otherMonth?'':'onclick="openScheduleModal(null, \''+dateStr+'\')"')+'>';
     html += '<span class="day-num">'+c.date.getDate()+'</span>'+labelHtml;
     sessions.forEach(function(s){
@@ -981,13 +1004,13 @@ function renderCalendar(){
       var displayTrack = s.audience || tpl.track;
       var trackClass = displayTrack==='AE'?'ae':displayTrack==='Product'?'product':displayTrack==='SDR & AE'?'combined':'';
       var statusClass = s.status==='Completed'?'completed':s.status==='Cancelled'?'cancelled':'';
-      html += '<span class="sess-chip '+trackClass+' '+statusClass+'" onclick="event.stopPropagation();openScheduleModal(\''+s.id+'\')" title="'+esc(tpl.title)+' · '+esc(s.facilitator||'')+' · '+esc(displayTrack)+'">'+esc(tpl.title)+'</span>';
+      var fileMarker = tpl.courseFileLink ? ' 📎' : '';
+      html += '<span class="sess-chip '+trackClass+' '+statusClass+'" onclick="event.stopPropagation();openScheduleModal(\''+s.id+'\')" title="'+esc(tpl.title)+' · '+esc(s.facilitator||'')+' · '+esc(displayTrack)+(tpl.courseFileLink?' · Has course file':'')+'">'+esc(tpl.title)+fileMarker+'</span>';
     });
     html += '</div>';
   });
   $('cal-body').innerHTML = html;
 }
-
 function renderList(){
   // Populate facilitator filter (once)
   var fSel = $('f-facilitator');
@@ -996,15 +1019,12 @@ function renderList(){
       var o=document.createElement('option');o.value=f;o.textContent=f;fSel.appendChild(o);
     });
   }
-
   var statusFilt = $('f-status').value;
   var facFilt = $('f-facilitator').value;
   var q = $('f-search').value.toLowerCase().trim();
-
   var rows = filteredScheduled().slice().sort(function(a,b){
     return (a.date+' '+(a.time||'')).localeCompare(b.date+' '+(b.time||''));
   });
-
   rows = rows.filter(function(s){
     if (statusFilt && s.status !== statusFilt) return false;
     if (facFilt && s.facilitator !== facFilt) return false;
@@ -1015,16 +1035,13 @@ function renderList(){
     }
     return true;
   });
-
   if (rows.length === 0){
     $('list-body').innerHTML = '<div class="empty">No scheduled sessions match your filters.</div>';
     return;
   }
-
   var html = '<table class="list"><thead><tr>'
-    + '<th>Date</th><th>Session</th><th>Track</th><th>Audience</th><th>Duration</th><th>Facilitator</th><th>Status</th><th></th>'
+    + '<th>Date</th><th>Session</th><th>Track</th><th>Audience</th><th>Duration</th><th>Facilitator</th><th>Status</th><th>Course File</th><th></th>'
     + '</tr></thead><tbody>';
-
   rows.forEach(function(s){
     var tpl = state.library.filter(function(l){return String(l.id)===String(s.templateId)})[0];
     if (!tpl) return;
@@ -1033,6 +1050,9 @@ function renderList(){
     var timeNice = s.time || '';
     var audienceBadgeClass = s.audience==='AE'?'ae':s.audience==='Product'?'product':s.audience==='SE'?'product':s.audience==='SDR & AE'?'combined':'sdr';
     var trackBadgeClass = tpl.track==='AE'?'ae':tpl.track==='Product'?'product':tpl.track==='SDR & AE'?'combined':'sdr';
+    var fileCell = tpl.courseFileLink
+      ? '<a class="file-link" href="'+esc(tpl.courseFileLink)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><span class="ico">📎</span> Open</a>'
+      : '<span class="file-link-none">—</span>';
     html += '<tr>';
     html += '<td><strong>'+dateNice+'</strong><div style="color:var(--muted);font-size:11px;margin-top:2px">'+timeNice+'</div></td>';
     html += '<td><div class="t-title">'+esc(tpl.title)+'</div><div class="t-desc">'+esc(tpl.description||'')+'</div></td>';
@@ -1041,16 +1061,16 @@ function renderList(){
     html += '<td>'+tpl.duration+' min</td>';
     html += '<td>'+esc(s.facilitator||'—')+'</td>';
     html += '<td><span class="badge status-'+(s.status||'scheduled').toLowerCase()+'">'+esc(s.status||'Scheduled')+'</span></td>';
+    html += '<td>'+fileCell+'</td>';
     html += '<td><button class="btn ghost sm" onclick="openScheduleModal(\''+s.id+'\')">Edit</button></td>';
     html += '</tr>';
   });
   html += '</tbody></table>';
   $('list-body').innerHTML = html;
 }
-
 function renderLibrary(){
   var html = '<table class="list"><thead><tr>'
-    + '<th>Title</th><th>Track</th><th>Duration</th><th>Description</th><th></th>'
+    + '<th>Title</th><th>Track</th><th>Duration</th><th>Description</th><th>Course File</th><th></th>'
     + '</tr></thead><tbody>';
   var libs = state.library.slice().sort(function(a,b){
     return (a.track+a.title).localeCompare(b.track+b.title);
@@ -1061,18 +1081,21 @@ function renderLibrary(){
   }
   libs.forEach(function(l){
     var trackClass = l.track==='AE'?'ae':l.track==='Product'?'product':l.track==='SDR & AE'?'combined':'sdr';
+    var fileCell = l.courseFileLink
+      ? '<a class="file-link" href="'+esc(l.courseFileLink)+'" target="_blank" rel="noopener noreferrer" title="'+esc(l.courseFileLink)+'"><span class="ico">📎</span> Open</a>'
+      : '<span class="file-link-none">No file</span>';
     html += '<tr>';
     html += '<td><div class="t-title">'+esc(l.title)+'</div><div class="t-desc">'+esc(l.objectives||'')+'</div></td>';
     html += '<td><span class="badge '+trackClass+'">'+esc(l.track)+'</span></td>';
     html += '<td>'+l.duration+' min</td>';
     html += '<td class="t-desc">'+esc(l.description||'')+'</td>';
+    html += '<td>'+fileCell+'</td>';
     html += '<td><button class="btn ghost sm" onclick="openLibraryModal(\''+l.id+'\')">Edit</button></td>';
     html += '</tr>';
   });
   html += '</tbody></table>';
   $('library-body').innerHTML = html;
 }
-
 // ================== MODALS ==================
 function populateScheduleTemplates(track){
   var sel = $('s-template');
@@ -1089,11 +1112,27 @@ function populateScheduleTemplates(track){
   opts.forEach(function(l){
     var o = document.createElement('option');
     o.value = l.id;
-    o.textContent = '['+l.track+'] '+l.title+' ('+l.duration+'m)';
+    o.textContent = '['+l.track+'] '+l.title+' ('+l.duration+'m)' + (l.courseFileLink ? ' 📎' : '');
     sel.appendChild(o);
   });
 }
-
+function updateScheduleFilePreview(){
+  var templateId = $('s-template').value;
+  var preview = $('s-file-preview');
+  var link = $('s-file-link');
+  if (!templateId){
+    preview.classList.remove('show');
+    return;
+  }
+  var tpl = state.library.filter(function(l){return String(l.id)===String(templateId)})[0];
+  if (tpl && tpl.courseFileLink){
+    link.href = tpl.courseFileLink;
+    link.textContent = shortenUrl(tpl.courseFileLink);
+    preview.classList.add('show');
+  } else {
+    preview.classList.remove('show');
+  }
+}
 function populateFacilitatorSelect(id){
   var sel = $(id);
   sel.innerHTML = '<option value="">— Select —</option>';
@@ -1101,12 +1140,10 @@ function populateFacilitatorSelect(id){
     var o=document.createElement('option');o.value=f;o.textContent=f;sel.appendChild(o);
   });
 }
-
 function openScheduleModal(id, prefillDate){
   state.editingScheduledId = id;
   populateScheduleTemplates(state.currentTrack);
   populateFacilitatorSelect('s-facilitator');
-
   if (id){
     var s = state.scheduled.filter(function(x){return String(x.id)===String(id)})[0];
     if (!s) return;
@@ -1128,10 +1165,9 @@ function openScheduleModal(id, prefillDate){
     $('s-status').value = 'Scheduled';
     $('btn-delete-scheduled').style.display = 'none';
   }
-
+  updateScheduleFilePreview();
   $('modal-schedule').classList.add('show');
 }
-
 function openLibraryModal(id){
   state.editingLibraryId = id;
   if (id){
@@ -1143,6 +1179,7 @@ function openLibraryModal(id){
     $('l-title').value = l.title;
     $('l-description').value = l.description || '';
     $('l-objectives').value = l.objectives || '';
+    $('l-coursefile').value = l.courseFileLink || '';
     $('btn-delete-library').style.display = '';
   } else {
     $('lib-title').innerHTML = 'New <em>Session Template</em>';
@@ -1151,16 +1188,15 @@ function openLibraryModal(id){
     $('l-title').value = '';
     $('l-description').value = '';
     $('l-objectives').value = '';
+    $('l-coursefile').value = '';
     $('btn-delete-library').style.display = 'none';
   }
   $('modal-library').classList.add('show');
 }
-
 function closeModals(){
   $('modal-schedule').classList.remove('show');
   $('modal-library').classList.remove('show');
 }
-
 // ================== SAVE HANDLERS ==================
 function saveScheduled(){
   var templateId = $('s-template').value;
@@ -1169,10 +1205,8 @@ function saveScheduled(){
   var facilitator = $('s-facilitator').value;
   var audience = $('s-audience').value;
   var status = $('s-status').value;
-
   if (!templateId){ toast('Pick a session', 'err'); return; }
   if (!date){ toast('Pick a date', 'err'); return; }
-
   if (state.editingScheduledId){
     apiPost({action:'updateScheduled', id:state.editingScheduledId, templateId:templateId, date:date, time:time, facilitator:facilitator, audience:audience, status:status}, function(){
       toast('Updated', 'ok');
@@ -1187,7 +1221,6 @@ function saveScheduled(){
     });
   }
 }
-
 function deleteScheduled(){
   if (!state.editingScheduledId) return;
   if (!confirm('Delete this scheduled session?')) return;
@@ -1197,19 +1230,23 @@ function deleteScheduled(){
     closeModals();
   });
 }
-
 function saveLibrary(){
   var title = $('l-title').value.trim();
   if (!title){ toast('Title is required', 'err'); return; }
-
+  var courseFileLink = $('l-coursefile').value.trim();
+  // Light URL validation — only if a value was entered
+  if (courseFileLink && !/^https?:\/\//i.test(courseFileLink)){
+    toast('Course file link must start with http:// or https://', 'err');
+    return;
+  }
   var body = {
     track: $('l-track').value,
     duration: parseInt($('l-duration').value),
     title: title,
     description: $('l-description').value.trim(),
-    objectives: $('l-objectives').value.trim()
+    objectives: $('l-objectives').value.trim(),
+    courseFileLink: courseFileLink
   };
-
   if (state.editingLibraryId){
     body.action = 'updateLibrary';
     body.id = state.editingLibraryId;
@@ -1220,7 +1257,6 @@ function saveLibrary(){
     apiPost(body, function(){ toast('Added', 'ok'); loadAll(); closeModals(); });
   }
 }
-
 function deleteLibrary(){
   if (!state.editingLibraryId) return;
   if (!confirm('Delete this session template? Any scheduled sessions using it will remain but may not display correctly.')) return;
@@ -1230,7 +1266,6 @@ function deleteLibrary(){
     closeModals();
   });
 }
-
 // ================== EVENT WIRING ==================
 document.querySelectorAll('.tab').forEach(function(t){
   t.addEventListener('click', function(){
@@ -1240,7 +1275,6 @@ document.querySelectorAll('.tab').forEach(function(t){
     render();
   });
 });
-
 document.querySelectorAll('.vs-btn').forEach(function(b){
   b.addEventListener('click', function(){
     document.querySelectorAll('.vs-btn').forEach(function(x){x.classList.remove('active')});
@@ -1249,7 +1283,6 @@ document.querySelectorAll('.vs-btn').forEach(function(b){
     render();
   });
 });
-
 $('cal-prev').addEventListener('click', function(){
   state.calDate = new Date(state.calDate.getFullYear(), state.calDate.getMonth()-1, 1);
   renderCalendar();
@@ -1262,31 +1295,28 @@ $('cal-today').addEventListener('click', function(){
   state.calDate = new Date();
   renderCalendar();
 });
-
 $('btn-add-scheduled').addEventListener('click', function(){ openScheduleModal(null); });
 $('btn-add-library').addEventListener('click', function(){ openLibraryModal(null); });
 $('btn-save-scheduled').addEventListener('click', saveScheduled);
 $('btn-save-library').addEventListener('click', saveLibrary);
 $('btn-delete-scheduled').addEventListener('click', deleteScheduled);
 $('btn-delete-library').addEventListener('click', deleteLibrary);
-
+// Update file preview whenever the template selection changes
+$('s-template').addEventListener('change', updateScheduleFilePreview);
 document.querySelectorAll('[data-close-modal]').forEach(function(b){
   b.addEventListener('click', closeModals);
 });
 document.querySelectorAll('.modal-bg').forEach(function(m){
   m.addEventListener('click', function(e){ if (e.target === m) closeModals(); });
 });
-
 ['f-status','f-facilitator','f-search'].forEach(function(id){
   var el = $(id);
   if (el) el.addEventListener('input', renderList);
 });
-
 // Keyboard: Esc to close
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') closeModals();
 });
-
 // Initial load
 if (API_URL.indexOf('REPLACE_WITH') >= 0){
   // Running without a backend — use seeded library locally so the UI still works
