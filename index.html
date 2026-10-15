@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Sessions · Meevo Sales Enablement</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f7; --panel:#ffffff; --ink:#0f172a; --ink-2:#334155; --muted:#64748b; --line:#dbe2ea;
+  --head-1:#0b1220; --head-2:#1e293b;
+  --sdr:#2563eb; --sdr-lt:#dbeafe; --ae:#ea580c; --ae-lt:#ffedd5; --product:#059669; --product-lt:#d1fae5;
+  --primary:#2563eb; --primary-deep:#1d4ed8; --red:#dc2626; --red-lt:#fee2e2; --green:#059669; --amber:#d97706;
+  --radius:14px; --shadow:0 8px 24px rgba(15,23,42,.08); --shadow-lg:0 24px 60px rgba(15,23,42,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+
+/* ===== Dark header band ===== */
+.topbar{background:linear-gradient(135deg,var(--head-1) 0%,var(--head-2) 100%);color:#fff;position:relative;overflow:hidden}
+.topbar::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.45),rgba(37,99,235,0) 70%);pointer-events:none}
+.topbar-inner{max-width:1360px;margin:0 auto;padding:28px 40px 30px;display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;position:relative;z-index:1}
+.brand{font-weight:900;font-size:30px;letter-spacing:-0.03em;line-height:1}
+.brand .reg{font-size:12px;vertical-align:super;font-weight:500;opacity:.8}
+.brand-sub{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93c5fd;margin-top:6px}
+.title-block h1{font-size:40px;font-weight:900;letter-spacing:-0.03em;line-height:1.05}
+.title-block h1 span{color:#60a5fa}
+.title-block p{color:#cbd5e1;font-size:14px;margin-top:8px;max-width:620px}
+.issue-block{text-align:right}
+.issue-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93c5fd}
+.issue-val{font-size:22px;font-weight:800;letter-spacing:-0.02em;margin-top:2px}
+.legend{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.lg{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px;color:#fff}
+.lg.sdr{background:var(--sdr)}.lg.ae{background:var(--ae)}.lg.product{background:var(--product)}
+
+.wrap{max-width:1360px;margin:0 auto;padding:24px 40px 48px}
+
+/* ===== Controls ===== */
+.controls{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;background:var(--panel);padding:6px;border-radius:999px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.tab{padding:10px 20px;border:none;background:transparent;color:var(--ink-2);font-size:14px;font-weight:700;border-radius:999px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab:hover{background:#f1f5f9;color:var(--ink)}
+.tab.active{background:var(--ink);color:#fff}
+.tab.active[data-track="sdr"]{background:var(--sdr)}
+.tab.active[data-track="ae"]{background:var(--ae)}
+.tab.active[data-track="product"]{background:var(--product)}
+.tab.active[data-track="library"]{background:#475569}
+.view-switch{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:10px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.vs-btn{padding:8px 16px;border:none;background:transparent;color:var(--ink-2);font-size:12px;font-weight:800;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.06em}
+.vs-btn.active{background:var(--ink);color:#fff}
+.btn{padding:11px 20px;border:1.5px solid var(--primary);background:var(--primary);color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--primary-deep);border-color:var(--primary-deep)}
+.btn.plum{background:var(--primary);border-color:var(--primary)}
+.btn.plum:hover{background:var(--primary-deep);border-color:var(--primary-deep)}
+.btn.ghost{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:#f1f5f9;border-color:#cbd5e1}
+.btn.danger{background:var(--panel);color:var(--red);border-color:var(--red)}
+.btn.danger:hover{background:var(--red);color:#fff}
+.btn.sm{padding:6px 12px;font-size:12px;border-radius:8px}
+
+/* ===== Calendar ===== */
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cal-nav .month{font-size:30px;font-weight:900;letter-spacing:-0.03em;color:var(--ink)}
+.cal-nav .month em{font-style:normal;color:var(--primary);font-weight:800}
+.cal-nav .nav-btns{display:flex;gap:8px}
+.nav-btn{width:42px;height:42px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);transition:all .15s}
+.nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cal-grid{background:var(--panel);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.cal-header{display:grid;grid-template-columns:repeat(7,1fr);background:var(--head-1);color:#fff}
+.cal-header .day-name{padding:12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;text-align:center}
+.cal-header .day-name:nth-child(2){color:#93c5fd}
+.cal-header .day-name:nth-child(3){color:#fdba74}
+.cal-body{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:auto}
+.cal-cell{min-height:150px;min-width:0;padding:10px;border-right:1px solid var(--line);border-top:1px solid var(--line);background:var(--panel);cursor:pointer;transition:background .15s;position:relative;display:flex;flex-direction:column;gap:6px}
+.cal-cell:hover{background:#f8fafc}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-cell.other-month{background:#f4f6fa;cursor:default}
+.cal-cell.other-month .day-num{color:#b6c0cc}
+.cal-cell.other-month:hover{background:#f4f6fa}
+.cal-cell .day-num{font-size:15px;font-weight:800;color:var(--ink);width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+.cal-cell.today .day-num{background:var(--primary);color:#fff;box-shadow:0 0 0 4px var(--sdr-lt)}
+.cal-cell .day-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-left:6px;padding:2px 7px;border-radius:999px}
+.cal-cell .sdr-label{background:var(--sdr-lt);color:var(--sdr)}
+.cal-cell .ae-label{background:var(--ae-lt);color:var(--ae)}
+/* Session cards */
+.sess-chip{display:block;width:100%;max-width:100%;background:var(--sdr);color:#fff;padding:9px 11px;border-radius:10px;font-size:13px;font-weight:700;line-height:1.3;cursor:pointer;box-shadow:0 3px 10px rgba(15,23,42,.14);border-left:5px solid rgba(255,255,255,.55);transition:transform .12s, box-shadow .12s;white-space:normal;overflow-wrap:anywhere;word-break:break-word;hyphens:auto}
+.sess-chip:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(15,23,42,.22)}
+.sess-chip .chip-title{display:block}
+.sess-chip .chip-meta{display:block;font-size:11px;font-weight:600;opacity:.9;margin-top:3px}
+.sess-chip.ae{background:var(--ae)}
+.sess-chip.product{background:var(--product)}
+.sess-chip.combined{background:linear-gradient(135deg,var(--sdr) 0%,var(--sdr) 50%,var(--ae) 50%,var(--ae) 100%)}
+.sess-chip.completed{opacity:.55;text-decoration:line-through}
+.sess-chip.cancelled{background:#e2e8f0;color:var(--muted);text-decoration:line-through;border-left-color:#cbd5e1;box-shadow:none}
+.sess-chip.orphan{background:var(--red-lt);color:var(--red);border:1.5px dashed var(--red);border-left:1.5px dashed var(--red);font-style:italic;box-shadow:none}
+
+/* ===== List view ===== */
+.list-wrap{background:var(--panel);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.list-filters{display:flex;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line);background:#f8fafc;flex-wrap:wrap;align-items:center}
+.list-filters select,.list-filters input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--panel);color:var(--ink)}
+.list-filters input{flex:1;min-width:220px}
+.list-filters label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}
+table.list{width:100%;border-collapse:collapse;font-size:14px}
+table.list th{text-align:left;padding:12px 20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);border-bottom:1px solid var(--line);background:#f8fafc}
+table.list td{padding:14px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+table.list tr:last-child td{border-bottom:none}
+table.list tr:hover td{background:#f8fafc}
+table.list .t-title{font-weight:800;font-size:15px;color:var(--ink);margin-bottom:2px}
+table.list .t-desc{font-size:13px;color:var(--muted);line-height:1.45;max-width:360px}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.badge.sdr{background:var(--sdr);color:#fff}
+.badge.ae{background:var(--ae);color:#fff}
+.badge.product{background:var(--product);color:#fff}
+.badge.combined{background:linear-gradient(90deg,var(--sdr) 0%,var(--sdr) 50%,var(--ae) 50%,var(--ae) 100%);color:#fff}
+.badge.status-scheduled{background:var(--sdr-lt);color:var(--sdr)}
+.badge.status-completed{background:var(--product-lt);color:var(--green)}
+.badge.status-cancelled{background:var(--red-lt);color:var(--red)}
+.empty{padding:48px 20px;text-align:center;color:var(--muted);font-size:14px}
+.file-link{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--sdr-lt);color:var(--sdr);border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:all .15s}
+.file-link:hover{background:var(--sdr);color:#fff}
+.file-link .ico{font-size:13px}
+.file-link-none{color:var(--muted);font-size:12px}
+.meet-link{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--product-lt);color:var(--green);border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:all .15s}
+.meet-link:hover{background:var(--green);color:#fff}
+.file-preview{margin-top:10px;padding:10px 14px;background:var(--sdr-lt);border-left:4px solid var(--sdr);border-radius:0 8px 8px 0;font-size:13px;display:none;align-items:center;gap:10px}
+.file-preview.show{display:flex}
+.file-preview .label{color:var(--ink-2);font-size:12px;font-weight:600}
+.file-preview a{color:var(--sdr);font-weight:700;word-break:break-all}
+.library-intro{margin-bottom:18px;padding:16px 20px;background:var(--panel);border-left:5px solid var(--primary);border-radius:0 var(--radius) var(--radius) 0;font-size:14px;color:var(--ink-2);box-shadow:var(--shadow)}
+
+/* ===== Modals ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(11,18,32,.65);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg.show{display:flex}
+.modal{background:var(--panel);border-radius:16px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-head{padding:22px 28px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--head-1),var(--head-2));color:#fff;border-radius:16px 16px 0 0}
+.modal-head h2{font-size:22px;font-weight:900;letter-spacing:-0.02em}
+.modal-head h2 em{font-style:normal;color:#60a5fa}
+.modal-close{width:34px;height:34px;border:none;background:rgba(255,255,255,.12);font-size:20px;cursor:pointer;color:#fff;border-radius:50%;transition:all .15s}
+.modal-close:hover{background:rgba(255,255,255,.25)}
+.modal-body{padding:24px 28px}
+.modal-foot{padding:18px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;background:#f8fafc;border-radius:0 0 16px 16px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-2);margin-bottom:6px}
+.form-hint{font-size:12px;color:var(--muted);margin-top:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:var(--panel);color:var(--ink);transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--sdr-lt)}
+.form-group textarea{resize:vertical;min-height:84px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.toast{position:fixed;top:24px;right:24px;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:700;background:var(--ink);color:#fff;z-index:200;box-shadow:var(--shadow-lg);transform:translateY(-20px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{background:var(--green)}
+.toast.err{background:var(--red)}
+.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){
+  .topbar-inner{grid-template-columns:1fr;gap:16px;padding:22px 20px}
+  .issue-block{text-align:left}.legend{justify-content:flex-start}
+  .title-block h1{font-size:30px}
+  .wrap{padding:16px 16px 40px}
+  .cal-cell{min-height:96px;padding:6px}
+  .cal-cell .day-label{display:none}
+  .sess-chip{font-size:11px;padding:6px 8px}
+  .sess-chip .chip-meta{display:none}
+  .form-row{grid-template-columns:1fr}
+  .controls{flex-direction:column;align-items:stretch}
+  .tabs{border-radius:16px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-block">
+      <div class="brand">Meevo<span class="reg">®</span></div>
+      <div class="brand-sub">Sales Enablement</div>
+    </div>
+    <div class="title-block">
+      <h1>Live <span>Sessions</span></h1>
+      <p>Weekly live training for SDRs and AEs, plus Product Training led by the SE team. Click any date to schedule a session, click any session to edit it.</p>
+    </div>
+    <div class="issue-block">
+      <div class="issue-label">Current month</div>
+      <div class="issue-val" id="issue-date">—</div>
+      <div class="legend"><span class="lg sdr">SDR · Mondays</span><span class="lg ae">AE · Tuesdays</span><span class="lg product">Product</span></div>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="controls">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-track="all">All Tracks</button>
+      <button class="tab" data-track="sdr">SDR · Mondays</button>
+      <button class="tab" data-track="ae">AE · Tuesdays</button>
+      <button class="tab" data-track="product">Product Training</button>
+      <button class="tab" data-track="library">Session Library</button>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="view-switch" id="view-switch">
+        <button class="vs-btn active" data-view="calendar">Calendar</button>
+        <button class="vs-btn" data-view="list">List</button>
+      </div>
+      <button class="btn plum" id="btn-add-scheduled">+ Schedule Session</button>
+    </div>
+  </div>
+  <div id="view-calendar">
+    <div class="cal-nav">
+      <div class="month" id="cal-month-label">—</div>
+      <div class="nav-btns">
+        <button class="nav-btn" id="cal-prev">‹</button>
+        <button class="nav-btn" id="cal-today">●</button>
+        <button class="nav-btn" id="cal-next">›</button>
+      </div>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-header">
+        <div class="day-name">Sun</div>
+        <div class="day-name">Mon</div>
+        <div class="day-name">Tue</div>
+        <div class="day-name">Wed</div>
+        <div class="day-name">Thu</div>
+        <div class="day-name">Fri</div>
+        <div class="day-name">Sat</div>
+      </div>
+      <div class="cal-body" id="cal-body"></div>
+    </div>
+  </div>
+  <div id="view-list" style="display:none">
+    <div class="list-wrap">
+      <div class="list-filters">
+        <label>Filter</label>
+        <select id="f-status">
+          <option value="">All statuses</option>
+          <option value="Scheduled">Scheduled</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+        <select id="f-facilitator">
+          <option value="">All facilitators</option>
+        </select>
+        <input type="text" id="f-search" placeholder="Search title or description…">
+      </div>
+      <div id="list-body"></div>
+    </div>
+  </div>
+  <div id="view-library" style="display:none">
+    <div class="library-intro">
+      Master list of reusable sessions. Add new sessions here so they appear in the "Schedule Session" dropdown. Attach a course file link (OneDrive, SharePoint, or Google Drive) so facilitators can open the deck in one click.
+    </div>
+    <div style="margin-bottom:16px;display:flex;justify-content:flex-end">
+      <button class="btn" id="btn-add-library">+ New Session Template</button>
+    </div>
+    <div class="list-wrap">
+      <div id="library-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE SESSION MODAL -->
+<div class="modal-bg" id="modal-schedule">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="sched-title">Schedule <em>Session</em></h2>
+      <button class="modal-close" data-close-modal>×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Session</label>
+        <select id="s-template">
+          <option value="">— Select a session —</option>
+        </select>
+        <div class="form-hint">
+          Don't see the one you want? Go to Session Library to add a new template.
+        </div>
+        <div class="file-preview" id="s-file-preview">
+          <span class="ico" style="font-size:16px">📎</span>
+          <div>
+            <div class="label">Course file for this session</div>
+            <a id="s-file-link" href="#" target="_blank" rel="noopener noreferrer">—</a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="s-coursefile-group" style="display:none">
+        <label>Course File Link (deck / workbook)</label>
+        <input type="url" id="s-coursefile" placeholder="https://onedrive.com/… or SharePoint / Google Drive URL">
+        <div class="form-hint">Add or change the file here. It saves to the session template, so it updates everywhere this session is scheduled.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="s-date">
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" id="s-time" value="14:00">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Facilitator</label>
+          <select id="s-facilitator">
+            <option value="">— Select —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Audience</label>
+          <select id="s-audience">
+            <option value="">— Use session default —</option>
+            <option value="SDR">SDR</option>
+            <option value="AE">AE</option>
+            <option value="SDR & AE">SDR & AE</option>
+            <option value="SE">SE</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="s-status">
+          <option value="Scheduled">Scheduled</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Meeting / Recording Link</label>
+        <input type="url" id="s-meeting-link" placeholder="https://teams.microsoft.com/… or Zoom / recording URL">
+        <div class="form-hint">Teams, Zoom, or recording link. Visible to facilitators and shows on the calendar.</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger" id="btn-delete-scheduled" style="display:none">Delete</button>
+      <div style="display:flex;gap:10px;margin-left:auto">
+        <button class="btn ghost" data-close-modal>Cancel</button>
+        <button class="btn plum" id="btn-save-scheduled">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIBRARY MODAL -->
+<div class="modal-bg" id="modal-library">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="lib-title">New <em>Session Template</em></h2>
+      <button class="modal-close" data-close-modal>×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Track</label>
+          <select id="l-track">
+            <option value="SDR">SDR · Mondays</option>
+            <option value="AE">AE · Tuesdays</option>
+            <option value="SDR & AE">SDR & AE · Combined</option>
+            <option value="Product">Product Training</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Duration</label>
+          <select id="l-duration">
+            <option value="30">30 minutes</option>
+            <option value="60" selected>1 hour</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="l-title" placeholder="e.g. Discovery Fundamentals">
+      </div>
+      <div class="form-group">
+        <label>Brief Description</label>
+        <textarea id="l-description" placeholder="One or two sentences on what this session covers."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Learning Objectives</label>
+        <textarea id="l-objectives" placeholder="What will reps walk away knowing or doing?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Course File Link</label>
+        <input type="url" id="l-coursefile" placeholder="https://onedrive.com/… or SharePoint / Google Drive URL">
+        <div class="form-hint">
+          Optional. Paste a OneDrive, SharePoint, or Google Drive link to the deck, workbook, or recording. Facilitators will see this when prepping.
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger" id="btn-delete-library" style="display:none">Delete</button>
+      <div style="display:flex;gap:10px;margin-left:auto">
+        <button class="btn ghost" data-close-modal>Cancel</button>
+        <button class="btn plum" id="btn-save-library">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+var API_URL = "https://script.google.com/macros/s/AKfycbzgUhkR1wH4xD_V2iGC8i79xNvbh7lW3MHItj-mP7A_4x8GcP0RJ-WbrQAEf7wWRSbe/exec";
+var FACILITATORS = [
+  "Avery Baccala",
+  "Melanie Hull",
+  "Nicole Fabre",
+  "Taylor Meeker",
+  "Denise LaRocca",
+  "Tony Sansone",
+  "Ryan Burns"
+];
+var SEED_LIBRARY = [
+  {id:"s1", track:"SDR", title:"ICP & Target Prospecting", description:"Who we sell to, why they buy, and what signals indicate a fit account.", duration:60, objectives:"Reps can articulate Meevo's ICP and identify 3 fit signals in any account.", courseFileLink:""},
+  {id:"s2", track:"SDR", title:"Cold Calling Mindset & Mechanics", description:"Getting past the first 30 seconds — tone, pacing, and handling the 'who's this?' moment.", duration:60, objectives:"Reps can open a cold call confidently and hold the line past the first objection.", courseFileLink:""},
+  {id:"s3", track:"SDR", title:"Gatekeeper Strategies", description:"Info gleaning, building rapport with non-decision-makers, and getting routed to the right person.", duration:60, objectives:"Reps have 3 gatekeeper scripts and know when to use each.", courseFileLink:""},
+  {id:"s4", track:"SDR", title:"Purpose → Plan → Outcome", description:"Structuring every call so the prospect knows why you're calling and what's in it for them.", duration:60, objectives:"Reps can frame any call using the PPO structure in under 20 seconds.", courseFileLink:""},
+  {id:"s5", track:"SDR", title:"Discovery Fundamentals", description:"The question framework that uncovers pain, priority, and timing.", duration:60, objectives:"Reps can run a 3-question discovery that surfaces real pain.", courseFileLink:""},
+  {id:"s6", track:"SDR", title:"Objection Handling 101", description:"'Not interested,' 'we already have a solution,' 'send me info' — scripts and reframes.", duration:60, objectives:"Reps have a response for the top 5 cold-call objections.", courseFileLink:""},
+  {id:"s7", track:"SDR", title:"Multi-Channel Outreach", description:"Blending cold calls, email sequences, LinkedIn, and video into a rhythm.", duration:60, objectives:"Reps can build a 10-touch sequence across 3 channels.", courseFileLink:""},
+  {id:"s8", track:"SDR", title:"Voicemail & Follow-Up Playbook", description:"When to leave one, what to say, and follow-up cadences that don't feel spammy.", duration:30, objectives:"Reps know the VM formula and 3 follow-up cadence options.", courseFileLink:""},
+  {id:"s9", track:"SDR", title:"Intro Call → Demo Handoff", description:"Setting the demo agenda, qualifying before handoff, and multi-threading to bring the right stakeholders.", duration:60, objectives:"Reps run a handoff-ready intro call with 90%+ demo show rate.", courseFileLink:""},
+  {id:"s10", track:"SDR", title:"Pipeline Self-Management", description:"CRM hygiene, activity tracking, weekly self-audits, and personal pipeline reviews.", duration:30, objectives:"Reps can audit their own pipeline and flag 3 at-risk opps each week.", courseFileLink:""},
+  {id:"a1", track:"AE", title:"SPIN Selling Deep Dive", description:"Situation, Problem, Implication, Need-payoff questions with real Meevo examples.", duration:60, objectives:"AEs can run a full SPIN sequence in a live discovery call.", courseFileLink:""},
+  {id:"a2", track:"AE", title:"Discovery Mastery", description:"Running full discovery, connecting pain to business impact, and quantifying the cost of inaction.", duration:60, objectives:"AEs can quantify 2+ business impacts in every discovery.", courseFileLink:""},
+  {id:"a3", track:"AE", title:"Running a Great Demo", description:"Demo-flow structure, tailoring to roles, avoiding feature-dump mode.", duration:60, objectives:"AEs can tailor any demo to owner vs. manager vs. clinical audience.", courseFileLink:""},
+  {id:"a4", track:"AE", title:"Multi-Threading & Stakeholder Mapping", description:"Economic buyer, operational lead, clinical authority, champion — how to identify and engage each.", duration:60, objectives:"AEs can name 4 stakeholder types and strategies for each.", courseFileLink:""},
+  {id:"a5", track:"AE", title:"Competitive Positioning", description:"How Meevo wins vs. specific competitors, common switch objections, and the proof-point library.", duration:60, objectives:"AEs can position Meevo vs. top 3 competitors from memory.", courseFileLink:""},
+  {id:"a6", track:"AE", title:"Pricing & Negotiation", description:"Anchoring, package selection, discounting discipline, trading not giving.", duration:60, objectives:"AEs can run a pricing conversation without discounting first.", courseFileLink:""},
+  {id:"a7", track:"AE", title:"Objection Handling (Late-Stage)", description:"Pricing pushback, 'we need to think about it,' procurement stalls, scope creep.", duration:60, objectives:"AEs have a playbook for the 5 most common late-stage objections.", courseFileLink:""},
+  {id:"a8", track:"AE", title:"Creating & Managing Urgency", description:"Compelling events, ROI framing, mutual action plans that hold deals together.", duration:60, objectives:"AEs can build a mutual action plan on any deal >$X.", courseFileLink:""},
+  {id:"a9", track:"AE", title:"Forecasting & Deal Inspection", description:"What makes a commit, what makes best-case, red flags in late-stage deals.", duration:30, objectives:"AEs can inspect their own pipeline and forecast with <10% variance.", courseFileLink:""},
+  {id:"a10", track:"AE", title:"Closing & Implementation Handoff", description:"Legal/contract walkthrough, setting expectations for onboarding, and customer success handoff.", duration:60, objectives:"AEs can execute a clean close-to-onboarding handoff.", courseFileLink:""}
+];
+var state = {
+  library: [],
+  scheduled: [],
+  currentTrack: "all",
+  currentView: "calendar",
+  calDate: new Date(),
+  editingScheduledId: null,
+  editingLibraryId: null
+};
+function $(id){return document.getElementById(id)}
+function fmtDate(d){
+  var y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), dd=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+dd;
+}
+function fmtIssue(d){
+  var m=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return m[d.getMonth()]+' '+d.getFullYear();
+}
+function fmtMonth(d){
+  var m=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return [m[d.getMonth()], d.getFullYear()];
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+// Normalise whatever the sheet sends for a time (e.g. "14:00", "2:00 PM", "1899-12-30T14:00:00.000Z") to "HH:MM"
+function toHHMM(t){
+  if (t == null) return '';
+  t = String(t).trim();
+  if (!t) return '';
+  var m = t.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/i);
+  if (m){
+    var h = parseInt(m[1],10), mi = m[2];
+    if (m[3]){ var ap = m[3].toUpperCase(); if (ap==='PM' && h<12) h+=12; if (ap==='AM' && h===12) h=0; }
+    return String(h).padStart(2,'0')+':'+mi;
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return '';
+  var d = new Date(t);
+  if (!isNaN(d.getTime())) return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  return '';
+}
+// Friendly 12-hour display, e.g. "2:00 PM"
+function fmtTime(t){
+  var hm = toHHMM(t);
+  if (!hm) return '';
+  var h = parseInt(hm.slice(0,2),10), mi = hm.slice(3);
+  var ap = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; if (h === 0) h = 12;
+  return h+':'+mi+' '+ap;
+}
+function shortenUrl(u){
+  if (!u) return '';
+  try {
+    var url = new URL(u);
+    var host = url.hostname.replace(/^www\./,'');
+    var path = url.pathname.length > 1 ? url.pathname : '';
+    var display = host + (path.length > 30 ? path.substring(0, 30) + '…' : path);
+    return display;
+  } catch(e){
+    return u.length > 50 ? u.substring(0, 50) + '…' : u;
+  }
+}
+function toast(msg, kind){
+  var t=$('toast');
+  t.textContent=msg;
+  t.className='toast show '+(kind||'ok');
+  setTimeout(function(){t.classList.remove('show')},2800);
+}
+function apiGet(action, cb){
+  // cache-bust so we always get fresh data after a save
+  fetch(API_URL+'?action='+encodeURIComponent(action)+'&_='+Date.now(), {method:'GET', mode:'cors'})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d && d.success) cb(d.data);
+      else { toast('Load failed: '+(d&&d.error?d.error:'unknown'), 'err'); cb([]); }
+    })
+    .catch(function(err){ toast('Network error: '+(err.message||''), 'err'); cb([]); });
+}
+function apiPost(body, cb){
+  fetch(API_URL, {
+    method:'POST', mode:'cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify(body)
+  })
+  .then(function(r){return r.json()})
+  .then(function(d){ if(cb) cb(d); })
+  .catch(function(err){ toast('Save failed: '+(err.message||''), 'err'); });
+}
+function loadAll(){
+  apiGet('readLibrary', function(lib){
+    if (!lib || lib.length === 0){
+      state.library = SEED_LIBRARY.slice();
+      state.library.forEach(function(s){
+        apiPost({action:'addLibrary', id:s.id, track:s.track, title:s.title, description:s.description, duration:s.duration, objectives:s.objectives, courseFileLink:s.courseFileLink||''});
+      });
+      toast('Seeded 20 starter sessions', 'ok');
+    } else {
+      state.library = lib;
+    }
+    apiGet('readScheduled', function(sch){
+      state.scheduled = sch || [];
+      render();
+    });
+  });
+}
+function render(){
+  $('view-calendar').style.display = state.currentView==='calendar' && state.currentTrack!=='library' ? '' : 'none';
+  $('view-list').style.display = state.currentView==='list' && state.currentTrack!=='library' ? '' : 'none';
+  $('view-library').style.display = state.currentTrack==='library' ? '' : 'none';
+  $('view-switch').style.display = state.currentTrack==='library' ? 'none' : '';
+  $('btn-add-scheduled').style.display = state.currentTrack==='library' ? 'none' : '';
+  if (state.currentTrack === 'library'){
+    renderLibrary();
+  } else if (state.currentView === 'calendar'){
+    renderCalendar();
+  } else {
+    renderList();
+  }
+  $('issue-date').textContent = fmtIssue(new Date());
+}
+function filteredScheduled(){
+  if (state.currentTrack === 'all') return state.scheduled;
+  var t = state.currentTrack.toUpperCase();
+  return state.scheduled.filter(function(s){
+    var tpl = state.library.filter(function(l){return String(l.id)===String(s.templateId)})[0];
+    if (!tpl) return false;
+    if (t === 'PRODUCT') return tpl.track === 'Product';
+    return tpl.track === t;
+  });
+}
+function renderCalendar(){
+  var d = state.calDate;
+  var monthParts = fmtMonth(d);
+  $('cal-month-label').innerHTML = monthParts[0] + ' <em>' + monthParts[1] + '</em>';
+  var year = d.getFullYear(), month = d.getMonth();
+  var firstOfMonth = new Date(year, month, 1);
+  var lastOfMonth = new Date(year, month+1, 0);
+  var startDay = firstOfMonth.getDay();
+  var daysInMonth = lastOfMonth.getDate();
+  var prevMonthLast = new Date(year, month, 0).getDate();
+  var today = new Date();
+  var todayStr = fmtDate(today);
+  var scheduled = filteredScheduled();
+  var byDate = {};
+  scheduled.forEach(function(s){
+    if (!byDate[s.date]) byDate[s.date] = [];
+    byDate[s.date].push(s);
+  });
+  var cells = [];
+  for (var i = startDay - 1; i >= 0; i--){
+    cells.push({date: new Date(year, month-1, prevMonthLast - i), otherMonth: true});
+  }
+  for (var day = 1; day <= daysInMonth; day++){
+    cells.push({date: new Date(year, month, day), otherMonth: false});
+  }
+  while (cells.length % 7 !== 0){
+    var last = cells[cells.length-1].date;
+    cells.push({date: new Date(last.getFullYear(), last.getMonth(), last.getDate()+1), otherMonth: true});
+  }
+  var html = '';
+  cells.forEach(function(c){
+    var dateStr = fmtDate(c.date);
+    var sessions = byDate[dateStr] || [];
+    var dow = c.date.getDay();
+    var labelHtml = '';
+    if (!c.otherMonth){
+      if (dow === 1) labelHtml = '<span class="day-label sdr-label">SDR</span>';
+      if (dow === 2) labelHtml = '<span class="day-label ae-label">AE</span>';
+    }
+    var classes = ['cal-cell'];
+    if (c.otherMonth) classes.push('other-month');
+    if (dateStr === todayStr) classes.push('today');
+    html += '<div class="'+classes.join(' ')+'" data-date="'+dateStr+'" '+(c.otherMonth?'':'onclick="openScheduleModal(null, \''+dateStr+'\')"')+'>';
+    html += '<span class="day-num">'+c.date.getDate()+'</span>'+labelHtml;
+    sessions.forEach(function(s){
+      var tpl = state.library.filter(function(l){return String(l.id)===String(s.templateId)})[0];
+      if (!tpl){
+        html += '<span class="sess-chip orphan" onclick="event.stopPropagation();openScheduleModal(\''+s.id+'\')" title="Unlinked session · '+esc(s.facilitator||'')+' · Click to reassign template">⚠ Unlinked session</span>';
+        return;
+      }
+      var displayTrack = s.audience || tpl.track;
+      var trackClass = displayTrack==='AE'?'ae':displayTrack==='Product'?'product':displayTrack==='SDR & AE'?'combined':'';
+      var statusClass = s.status==='Completed'?'completed':s.status==='Cancelled'?'cancelled':'';
+      var fileMarker = tpl.courseFileLink ? ' 📎' : '';
+      var linkMarker = s.meetingLink ? ' 🔗' : '';
+      html += '<span class="sess-chip '+trackClass+' '+statusClass+'" onclick="event.stopPropagation();openScheduleModal(\''+s.id+'\')" title="'+esc(tpl.title)+' · '+esc(s.facilitator||'')+' · '+esc(displayTrack)+(tpl.courseFileLink?' · Has course file':'')+(s.meetingLink?' · Has meeting link':'')+'"><span class="chip-title">'+esc(tpl.title)+fileMarker+linkMarker+'</span><span class="chip-meta">'+esc([fmtTime(s.time), s.facilitator||''].filter(function(x){return x;}).join(' · '))+'</span></span>';
+    });
+    html += '</div>';
+  });
+  $('cal-body').innerHTML = html;
+}
+function renderList(){
+  var fSel = $('f-facilitator');
+  if (fSel.options.length <= 1){
+    FACILITATORS.forEach(function(f){
+      var o=document.createElement('option');o.value=f;o.textContent=f;fSel.appendChild(o);
+    });
+  }
+  var statusFilt = $('f-status').value;
+  var facFilt = $('f-facilitator').value;
+  var q = $('f-search').value.toLowerCase().trim();
+  var rows = filteredScheduled().slice().sort(function(a,b){
+    return (a.date+' '+toHHMM(a.time)).localeCompare(b.date+' '+toHHMM(b.time));
+  });
+  rows = rows.filter(function(s){
+    if (statusFilt && s.status !== statusFilt) return false;
+    if (facFilt && s.facilitator !== facFilt) return false;
+    if (q){
+      var tpl = state.library.filter(function(l){return String(l.id)===String(s.templateId)})[0];
+      var txt = (tpl?tpl.title+' '+tpl.description:'').toLowerCase();
+      if (txt.indexOf(q) < 0) return false;
+    }
+    return true;
+  });
+  if (rows.length === 0){
+    $('list-body').innerHTML = '<div class="empty">No scheduled sessions match your filters.</div>';
+    return;
+  }
+  var html = '<table class="list"><thead><tr>'
+    + '<th>Date</th><th>Session</th><th>Track</th><th>Audience</th><th>Duration</th><th>Facilitator</th><th>Status</th><th>Course File</th><th>Meeting Link</th><th></th>'
+    + '</tr></thead><tbody>';
+  rows.forEach(function(s){
+    var tpl = state.library.filter(function(l){return String(l.id)===String(s.templateId)})[0];
+    var dateObj = new Date(s.date+'T12:00:00');
+    var dateNice = dateObj.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    var timeNice = fmtTime(s.time);
+    var meetCell = s.meetingLink
+      ? '<a class="meet-link" href="'+esc(s.meetingLink)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">🔗 Join</a>'
+      : '<span class="file-link-none">—</span>';
+    if (!tpl){
+      html += '<tr style="opacity:0.7">';
+      html += '<td><strong>'+dateNice+'</strong><div style="color:var(--muted);font-size:11px;margin-top:2px">'+timeNice+'</div></td>';
+      html += '<td><div class="t-title" style="color:var(--red)">⚠ Unlinked session</div><div class="t-desc" style="color:var(--muted);font-size:11px">Template no longer exists — click Edit to reassign</div></td>';
+      html += '<td><span style="color:var(--muted);font-size:11px">—</span></td>';
+      html += '<td><span style="color:var(--muted);font-size:11px">—</span></td>';
+      html += '<td><span style="color:var(--muted);font-size:11px">—</span></td>';
+      html += '<td>'+esc(s.facilitator||'—')+'</td>';
+      html += '<td><span class="badge status-'+(s.status||'scheduled').toLowerCase()+'">'+esc(s.status||'Scheduled')+'</span></td>';
+      html += '<td><span class="file-link-none">—</span></td>';
+      html += '<td>'+meetCell+'</td>';
+      html += '<td><button class="btn ghost sm" onclick="openScheduleModal(\''+s.id+'\')">Edit</button></td>';
+      html += '</tr>';
+      return;
+    }
+    var audienceBadgeClass = s.audience==='AE'?'ae':s.audience==='Product'?'product':s.audience==='SE'?'product':s.audience==='SDR & AE'?'combined':'sdr';
+    var trackBadgeClass = tpl.track==='AE'?'ae':tpl.track==='Product'?'product':tpl.track==='SDR & AE'?'combined':'sdr';
+    var fileCell = tpl.courseFileLink
+      ? '<a class="file-link" href="'+esc(tpl.courseFileLink)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><span class="ico">📎</span> Open</a>'
+      : '<span class="file-link-none">—</span>';
+    html += '<tr>';
+    html += '<td><strong>'+dateNice+'</strong><div style="color:var(--muted);font-size:11px;margin-top:2px">'+timeNice+'</div></td>';
+    html += '<td><div class="t-title">'+esc(tpl.title)+'</div><div class="t-desc">'+esc(tpl.description||'')+'</div></td>';
+    html += '<td><span class="badge '+trackBadgeClass+'">'+esc(tpl.track)+'</span></td>';
+    html += '<td>'+(s.audience ? '<span class="badge '+audienceBadgeClass+'">'+esc(s.audience)+'</span>' : '<span style="color:var(--muted);font-size:11px">—</span>')+'</td>';
+    html += '<td>'+tpl.duration+' min</td>';
+    html += '<td>'+esc(s.facilitator||'—')+'</td>';
+    html += '<td><span class="badge status-'+(s.status||'scheduled').toLowerCase()+'">'+esc(s.status||'Scheduled')+'</span></td>';
+    html += '<td>'+fileCell+'</td>';
+    html += '<td>'+meetCell+'</td>';
+    html += '<td><button class="btn ghost sm" onclick="openScheduleModal(\''+s.id+'\')">Edit</button></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  $('list-body').innerHTML = html;
+}
+function renderLibrary(){
+  var html = '<table class="list"><thead><tr>'
+    + '<th>Title</th><th>Track</th><th>Duration</th><th>Description</th><th>Course File</th><th></th>'
+    + '</tr></thead><tbody>';
+  var libs = state.library.slice().sort(function(a,b){
+    return (a.track+a.title).localeCompare(b.track+b.title);
+  });
+  if (libs.length === 0){
+    $('library-body').innerHTML = '<div class="empty">No session templates yet. Add your first one.</div>';
+    return;
+  }
+  libs.forEach(function(l){
+    var trackClass = l.track==='AE'?'ae':l.track==='Product'?'product':l.track==='SDR & AE'?'combined':'sdr';
+    var fileCell = l.courseFileLink
+      ? '<a class="file-link" href="'+esc(l.courseFileLink)+'" target="_blank" rel="noopener noreferrer" title="'+esc(l.courseFileLink)+'"><span class="ico">📎</span> Open</a>'
+      : '<span class="file-link-none">No file</span>';
+    html += '<tr>';
+    html += '<td><div class="t-title">'+esc(l.title)+'</div><div class="t-desc">'+esc(l.objectives||'')+'</div></td>';
+    html += '<td><span class="badge '+trackClass+'">'+esc(l.track)+'</span></td>';
+    html += '<td>'+l.duration+' min</td>';
+    html += '<td class="t-desc">'+esc(l.description||'')+'</td>';
+    html += '<td>'+fileCell+'</td>';
+    html += '<td><button class="btn ghost sm" onclick="openLibraryModal(\''+l.id+'\')">Edit</button></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  $('library-body').innerHTML = html;
+}
+function populateScheduleTemplates(track){
+  var sel = $('s-template');
+  sel.innerHTML = '<option value="">— Select a session —</option>';
+  var opts = state.library.slice().sort(function(a,b){return (a.track+a.title).localeCompare(b.track+b.title)});
+  if (track && track !== 'all'){
+    opts = opts.filter(function(l){
+      if (track === 'sdr') return l.track === 'SDR';
+      if (track === 'ae')  return l.track === 'AE';
+      if (track === 'product') return l.track === 'Product';
+      return true;
+    });
+  }
+  opts.forEach(function(l){
+    var o = document.createElement('option');
+    o.value = l.id;
+    o.textContent = '['+l.track+'] '+l.title+' ('+l.duration+'m)' + (l.courseFileLink ? ' 📎' : '');
+    sel.appendChild(o);
+  });
+}
+function updateScheduleFilePreview(){
+  var templateId = $('s-template').value;
+  var preview = $('s-file-preview');
+  var link = $('s-file-link');
+  var group = $('s-coursefile-group');
+  var input = $('s-coursefile');
+  if (!templateId){
+    preview.classList.remove('show');
+    if (group) group.style.display = 'none';
+    if (input) input.value = '';
+    return;
+  }
+  var tpl = state.library.filter(function(l){return String(l.id)===String(templateId)})[0];
+  if (group) group.style.display = '';
+  if (input) input.value = (tpl && tpl.courseFileLink) ? tpl.courseFileLink : '';
+  if (tpl && tpl.courseFileLink){
+    link.href = tpl.courseFileLink;
+    link.textContent = shortenUrl(tpl.courseFileLink);
+    preview.classList.add('show');
+  } else {
+    preview.classList.remove('show');
+  }
+}
+// Save a changed course file back to the session template (Library) so it applies everywhere.
+function saveCourseFileIfChanged(templateId){
+  var input = $('s-coursefile');
+  if (!input || !templateId) return;
+  var newLink = input.value.trim();
+  var tpl = state.library.filter(function(l){return String(l.id)===String(templateId)})[0];
+  if (!tpl) return;
+  if ((tpl.courseFileLink||'') === newLink) return;
+  tpl.courseFileLink = newLink;
+  apiPost({action:'updateLibrary', id:tpl.id, track:tpl.track, duration:tpl.duration, title:tpl.title, description:tpl.description||'', objectives:tpl.objectives||'', courseFileLink:newLink}, function(d){
+    if (d && d.success === false) toast('Course file not saved: ' + (d.error||'unknown'), 'err');
+    else toast('Course file updated', 'ok');
+  });
+}
+function populateFacilitatorSelect(id){
+  var sel = $(id);
+  sel.innerHTML = '<option value="">— Select —</option>';
+  FACILITATORS.forEach(function(f){
+    var o=document.createElement('option');o.value=f;o.textContent=f;sel.appendChild(o);
+  });
+}
+function openScheduleModal(id, prefillDate){
+  state.editingScheduledId = id;
+  populateScheduleTemplates(state.currentTrack);
+  populateFacilitatorSelect('s-facilitator');
+  if (id){
+    var s = state.scheduled.filter(function(x){return String(x.id)===String(id)})[0];
+    if (!s) return;
+    $('sched-title').innerHTML = 'Edit <em>Session</em>';
+    $('s-template').value = s.templateId;
+    $('s-date').value = s.date;
+    $('s-time').value = toHHMM(s.time) || '14:00';
+    $('s-facilitator').value = s.facilitator || '';
+    $('s-audience').value = s.audience || '';
+    $('s-status').value = s.status || 'Scheduled';
+    $('s-meeting-link').value = s.meetingLink || '';
+    $('btn-delete-scheduled').style.display = '';
+  } else {
+    $('sched-title').innerHTML = 'Schedule <em>Session</em>';
+    $('s-template').value = '';
+    $('s-date').value = prefillDate || fmtDate(new Date());
+    $('s-time').value = '14:00';
+    $('s-facilitator').value = '';
+    $('s-audience').value = '';
+    $('s-status').value = 'Scheduled';
+    $('s-meeting-link').value = '';
+    $('btn-delete-scheduled').style.display = 'none';
+  }
+  updateScheduleFilePreview();
+  $('modal-schedule').classList.add('show');
+}
+function openLibraryModal(id){
+  state.editingLibraryId = id;
+  if (id){
+    var l = state.library.filter(function(x){return String(x.id)===String(id)})[0];
+    if (!l) return;
+    $('lib-title').innerHTML = 'Edit <em>Session Template</em>';
+    $('l-track').value = l.track;
+    $('l-duration').value = l.duration;
+    $('l-title').value = l.title;
+    $('l-description').value = l.description || '';
+    $('l-objectives').value = l.objectives || '';
+    $('l-coursefile').value = l.courseFileLink || '';
+    $('btn-delete-library').style.display = '';
+  } else {
+    $('lib-title').innerHTML = 'New <em>Session Template</em>';
+    $('l-track').value = 'SDR';
+    $('l-duration').value = '60';
+    $('l-title').value = '';
+    $('l-description').value = '';
+    $('l-objectives').value = '';
+    $('l-coursefile').value = '';
+    $('btn-delete-library').style.display = 'none';
+  }
+  $('modal-library').classList.add('show');
+}
+function closeModals(){
+  $('modal-schedule').classList.remove('show');
+  $('modal-library').classList.remove('show');
+}
+function saveScheduled(){
+  var templateId = $('s-template').value;
+  var date = $('s-date').value;
+  var time = $('s-time').value;
+  var facilitator = $('s-facilitator').value;
+  var audience = $('s-audience').value;
+  var status = $('s-status').value;
+  var meetingLink = $('s-meeting-link').value.trim();
+  if (!templateId){ toast('Pick a session', 'err'); return; }
+  if (!date){ toast('Pick a date', 'err'); return; }
+  if (meetingLink && !/^https?:\/\//i.test(meetingLink)){
+    toast('Meeting link must start with http:// or https://', 'err');
+    return;
+  }
+  var cf = $('s-coursefile') ? $('s-coursefile').value.trim() : '';
+  if (cf && !/^https?:\/\//i.test(cf)){
+    toast('Course file link must start with http:// or https://', 'err');
+    return;
+  }
+  saveCourseFileIfChanged(templateId);
+  if (state.editingScheduledId){
+    apiPost({action:'updateScheduled', id:state.editingScheduledId, templateId:templateId, date:date, time:time, facilitator:facilitator, audience:audience, status:status, meetingLink:meetingLink}, function(){
+      toast('Updated', 'ok');
+      loadAll();
+      closeModals();
+    });
+  } else {
+    apiPost({action:'addScheduled', templateId:templateId, date:date, time:time, facilitator:facilitator, audience:audience, status:status, meetingLink:meetingLink}, function(){
+      toast('Scheduled', 'ok');
+      loadAll();
+      closeModals();
+    });
+  }
+}
+function deleteScheduled(){
+  if (!state.editingScheduledId) return;
+  if (!confirm('Delete this scheduled session?')) return;
+  apiPost({action:'deleteScheduled', id:state.editingScheduledId}, function(){
+    toast('Deleted', 'ok');
+    loadAll();
+    closeModals();
+  });
+}
+function saveLibrary(){
+  var title = $('l-title').value.trim();
+  if (!title){ toast('Title is required', 'err'); return; }
+  var courseFileLink = $('l-coursefile').value.trim();
+  if (courseFileLink && !/^https?:\/\//i.test(courseFileLink)){
+    toast('Course file link must start with http:// or https://', 'err');
+    return;
+  }
+  var body = {
+    track: $('l-track').value,
+    duration: parseInt($('l-duration').value),
+    title: title,
+    description: $('l-description').value.trim(),
+    objectives: $('l-objectives').value.trim(),
+    courseFileLink: courseFileLink
+  };
+  if (state.editingLibraryId){
+    body.action = 'updateLibrary';
+    body.id = state.editingLibraryId;
+    apiPost(body, function(d){
+      if (d && d.success === false) { toast('Save error: ' + (d.error||'unknown'), 'err'); return; }
+      toast('Updated', 'ok'); loadAll(); closeModals();
+    });
+  } else {
+    body.action = 'addLibrary';
+    body.id = 'x' + new Date().getTime();
+    apiPost(body, function(d){
+      if (d && d.success === false) { toast('Save error: ' + (d.error||'unknown'), 'err'); return; }
+      toast('Added', 'ok'); loadAll(); closeModals();
+    });
+  }
+}
+function deleteLibrary(){
+  if (!state.editingLibraryId) return;
+  if (!confirm('Delete this session template? Any scheduled sessions using it will remain but may not display correctly.')) return;
+  apiPost({action:'deleteLibrary', id:state.editingLibraryId}, function(){
+    toast('Deleted', 'ok');
+    loadAll();
+    closeModals();
+  });
+}
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+    state.currentTrack = t.dataset.track;
+    render();
+  });
+});
+document.querySelectorAll('.vs-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.vs-btn').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');
+    state.currentView = b.dataset.view;
+    render();
+  });
+});
+$('cal-prev').addEventListener('click', function(){
+  state.calDate = new Date(state.calDate.getFullYear(), state.calDate.getMonth()-1, 1);
+  renderCalendar();
+});
+$('cal-next').addEventListener('click', function(){
+  state.calDate = new Date(state.calDate.getFullYear(), state.calDate.getMonth()+1, 1);
+  renderCalendar();
+});
+$('cal-today').addEventListener('click', function(){
+  state.calDate = new Date();
+  renderCalendar();
+});
+$('btn-add-scheduled').addEventListener('click', function(){ openScheduleModal(null); });
+$('btn-add-library').addEventListener('click', function(){ openLibraryModal(null); });
+$('btn-save-scheduled').addEventListener('click', saveScheduled);
+$('btn-save-library').addEventListener('click', saveLibrary);
+$('btn-delete-scheduled').addEventListener('click', deleteScheduled);
+$('btn-delete-library').addEventListener('click', deleteLibrary);
+$('s-template').addEventListener('change', updateScheduleFilePreview);
+$('s-coursefile').addEventListener('input', function(){
+  var v = this.value.trim(); var preview = $('s-file-preview'); var link = $('s-file-link');
+  if (v && /^https?:\/\//i.test(v)){ link.href = v; link.textContent = shortenUrl(v); preview.classList.add('show'); }
+  else { preview.classList.remove('show'); }
+});
+document.querySelectorAll('[data-close-modal]').forEach(function(b){
+  b.addEventListener('click', closeModals);
+});
+document.querySelectorAll('.modal-bg').forEach(function(m){
+  m.addEventListener('click', function(e){ if (e.target === m) closeModals(); });
+});
+['f-status','f-facilitator','f-search'].forEach(function(id){
+  var el = $(id);
+  if (el) el.addEventListener('input', renderList);
+});
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closeModals();
+});
+if (API_URL.indexOf('REPLACE_WITH') >= 0){
+  state.library = SEED_LIBRARY.slice();
+  render();
+  toast('Demo mode — update API_URL to enable saving', 'err');
+} else {
+  loadAll();
+}
+</script>
+</body>
+</html>
